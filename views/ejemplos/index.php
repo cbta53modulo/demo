@@ -81,10 +81,10 @@ $form = ActiveForm::begin([
 ]);
 
 echo "<tr>";
-echo "<td><div class='sql-code'>$highlightedSql</div></td>";
+echo "<td>Consulta 1: Un parametro<div class='sql-code'>$highlightedSql</div></td>";
 echo "<td>";
 echo "Parametro 1: " . Html::textInput('parametro1', '', ['class' => 'form-control']);
-echo "Parametro 2: " . Html::textInput('parametro2', '', ['class' => 'form-control']) . "<br>";
+echo "<br>";
 echo "</td>";
 echo "<td>";
 echo Html::hiddenInput('queryId', 'consulta1'); // Identificador de consulta
@@ -105,7 +105,7 @@ $form = ActiveForm::begin([
 ]);
 
 echo "<tr>";
-echo "<td><div class='sql-code'>$highlightedSql</div></td>";
+echo "<td>Consulta 2: Having con parametro en radio y order by <div class='sql-code'>$highlightedSql</div></td>";
 echo "<td>";
 echo "Parametro 1: " . Html::textInput('parametro1', '', ['class' => 'form-control']);
 echo "Parametro 2" . Html::radioList('parametro2', 'ASC', [
@@ -131,7 +131,7 @@ $form = ActiveForm::begin([
 ]);
 
 echo "<tr>";
-echo "<td><div class='sql-code'>$highlightedSql</div></td>";
+echo "<td>Consulta 3:BETWEEN con dos parametros<div class='sql-code'>$highlightedSql</div></td>";
 echo "<td>";
 echo "Parametro 1: " . Html::textInput('parametro1', '', ['class' => 'form-control']);
 echo "Parametro 2: " . Html::textInput('parametro2', '', ['class' => 'form-control']) . "<br>";
@@ -155,11 +155,9 @@ $form = ActiveForm::begin([
 ]);
 
 echo "<tr>";
-echo "<td><div class='sql-code'>$highlightedSql</div></td>";
+echo "<td>Consulta 4: Fechas 1 parametro<div class='sql-code'>$highlightedSql</div></td>";
 echo "<td>";
 echo "Parametro 1: " . Html::input('date', 'parametro1', '', ['class' => 'form-control']);
-
-echo "Parametro 2: " . Html::textInput('parametro2', '', ['class' => 'form-control']) . "<br>";
 echo "</td>";
 echo "<td>";
 echo Html::hiddenInput('queryId', 'consulta4'); // Identificador de consulta
@@ -179,10 +177,22 @@ $form = ActiveForm::begin([
 ]);
 
 echo "<tr>";
-echo "<td><div class='sql-code'>$highlightedSql</div></td>";
+echo "<td>Consulta 5: Lista estatica<div class='sql-code'>$highlightedSql</div></td>";
 echo "<td>";
-echo "Parametro 1: " . Html::textInput('parametro1', '', ['class' => 'form-control']);
-echo "Parametro 2: " . Html::textInput('parametro2', '', ['class' => 'form-control']) . "<br>";
+echo "Parametro 1: " . Html::dropDownList(
+    'parametro1', // Nombre del campo
+    null, // Valor seleccionado (inicialmente ninguno)
+    [ // Opciones para el dropdown
+        1 => 'Desarrollo',
+        2 => 'Sistemas',
+        3 => 'Recursos Humanos',
+        4 => 'Contabilidad',
+        // aqui pondrias mas
+    ],
+    ['class' => 'form-control', 'prompt' => 'Seleccione una opción'] // Atributos HTML adicionales
+);
+
+echo "<br>";
 echo "</td>";
 echo "<td>";
 echo Html::hiddenInput('queryId', 'consulta5'); // Identificador de consulta
@@ -196,16 +206,32 @@ ActiveForm::end();
 // *********************************************** Consulta 6 **********************************
 $sql = $queries['consulta6'];
 $highlightedSql = formatSql($sql);
+
+// Consulta SQL directa para obtener los depas
+$depas = Yii::$app->db->createCommand('SELECT codigo, nombre FROM departamento')->queryAll();
+
+// Convertir el resultado en un array adecuado para el dropdown
+$depasDropdown = [];
+foreach ($depas as $depa) {
+    $depasDropdown[$depa['codigo']] = $depa['nombre'];
+}
+
+//iniciamos el form
 $form = ActiveForm::begin([
     'method' => 'post',
     'action' => ['ejemplos/dynamic-report'],
 ]);
 
 echo "<tr>";
-echo "<td><div class='sql-code'>$highlightedSql</div></td>";
+echo "<td>Consulta 6:Lista desde base de datos.<div class='sql-code'>$highlightedSql</div></td>";
 echo "<td>";
-echo "Parametro 1: " . Html::textInput('parametro1', '', ['class' => 'form-control']);
-echo "Parametro 2: " . Html::textInput('parametro2', '', ['class' => 'form-control']) . "<br>";
+echo "Parametro 1:" . Html::dropDownList(
+    'parametro1', // Nombre del campo
+    null, // Valor seleccionado
+    $depasDropdown, // Opciones cargadas desde la base de datos
+    ['class' => 'form-control', 'prompt' => 'Seleccione una opcion'] // Atributos adicionales
+);
+echo "<br>";
 echo "</td>";
 echo "<td>";
 echo Html::hiddenInput('queryId', 'consulta6'); // Identificador de consulta
@@ -225,7 +251,7 @@ $form = ActiveForm::begin([
 ]);
 
 echo "<tr>";
-echo "<td><div class='sql-code'>$highlightedSql</div></td>";
+echo "<td>Consulta 7:<div class='sql-code'>$highlightedSql</div></td>";
 echo "<td>";
 echo "Parametro 1: " . Html::textInput('parametro1', '', ['class' => 'form-control']);
 echo "Parametro 2: " . Html::textInput('parametro2', '', ['class' => 'form-control']) . "<br>";
@@ -248,7 +274,7 @@ $form = ActiveForm::begin([
 ]);
 
 echo "<tr>";
-echo "<td><div class='sql-code'>$highlightedSql</div></td>";
+echo "<td>Consulta 8:<div class='sql-code'>$highlightedSql</div></td>";
 echo "<td>";
 echo "Parametro 1: " . Html::textInput('parametro1', '', ['class' => 'form-control']);
 echo "Parametro 2: " . Html::textInput('parametro2', '', ['class' => 'form-control']) . "<br>";
@@ -271,7 +297,7 @@ $form = ActiveForm::begin([
 ]);
 
 echo "<tr>";
-echo "<td><div class='sql-code'>$highlightedSql</div></td>";
+echo "<td>Consulta 9:<div class='sql-code'>$highlightedSql</div></td>";
 echo "<td>";
 echo "Parametro 1: " . Html::textInput('parametro1', '', ['class' => 'form-control']);
 echo "Parametro 2: " . Html::textInput('parametro2', '', ['class' => 'form-control']) . "<br>";
@@ -294,7 +320,7 @@ $form = ActiveForm::begin([
 ]);
 
 echo "<tr>";
-echo "<td><div class='sql-code'>$highlightedSql</div></td>";
+echo "<td>Consulta 10:<div class='sql-code'>$highlightedSql</div></td>";
 echo "<td>";
 echo "Parametro 1: " . Html::textInput('parametro1', '', ['class' => 'form-control']);
 echo "Parametro 2: " . Html::textInput('parametro2', '', ['class' => 'form-control']) . "<br>";

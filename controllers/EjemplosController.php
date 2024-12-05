@@ -28,8 +28,10 @@ class EjemplosController extends \yii\web\Controller
                         FROM nomina n
                         INNER JOIN empleado e ON e.codigo = n.id_empleado
                         WHERE f_pago > :param1;',
-        'consulta5' => '',
-        'consulta6' => '',
+        'consulta5' => 'SELECT * FROM empleado
+                        WHERE codigo_departamento = :param1',
+        'consulta6' => 'SELECT * FROM empleado
+                        WHERE codigo_departamento = :param1',
         'consulta7' => '',
         'consulta8' => '',
         'consulta9' => '',
@@ -56,30 +58,47 @@ class EjemplosController extends \yii\web\Controller
 
         if ($sql) {
             // Identifica la consulta según el botón presionado
-            if ($queryId == 'consulta1') {
-                $params = [
-                    ':param1' => "$param1"
-                ];
-            } elseif ($queryId == 'consulta2') {
-                // Como el valor es un texto al ponerlo como paramentor hara esto 'desc' y dara error
-                //por eso lo pegamos directamente.
-                $sql .= " ORDER BY depa $param2;";
-                $params = [
+            switch ($queryId) {
+                case 'consulta1':
+                    $params = [
+                        ':param1' => "$param1"
+                    ];
+                    break;
 
-                    ':param1' => $param1,
+                case 'consulta2':
+                    // Como el valor es un texto, lo pegamos directamente para evitar errores.
+                    $sql .= " ORDER BY depa $param2;";
+                    $params = [
+                        ':param1' => $param1,
+                    ];
+                    break;
 
-                ];
-            } elseif ($queryId == 'consulta3') {
-                $params = [
-                    ':param1' => $param1,
-                    ':param2' => $param2,
-                ];
-            } elseif ($queryId == 'consulta4') {
-                $params = [
-                    ':param1' => $param1                    
-                ];
-            } else {
-                $sql = false;
+                case 'consulta3':
+                    $params = [
+                        ':param1' => $param1,
+                        ':param2' => $param2,
+                    ];
+                    break;
+
+                case 'consulta4':
+                    $params = [
+                        ':param1' => $param1
+                    ];
+                    break;
+
+                case 'consulta5':
+                    $params = [
+                        ':param1' => $param1
+                    ];
+                    break;
+                case 'consulta6':
+                    $params = [
+                        ':param1' => $param1
+                    ];
+                    break;
+                default:
+                    $sql = false;
+                    break;
             }
         }
         if (!empty($sql)) {
