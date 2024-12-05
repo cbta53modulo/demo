@@ -18,7 +18,7 @@ class DepartamentoSearch extends Departamento
     {
         return [
             [['codigo'], 'integer'],
-            [['nombre'], 'safe'],
+            [['nombre', 'logo'], 'safe'],
             [['presupuesto', 'gastos'], 'number'],
         ];
     }
@@ -64,7 +64,8 @@ class DepartamentoSearch extends Departamento
             'gastos' => $this->gastos,
         ]);
 
-        $query->andFilterWhere(['like', 'nombre', $this->nombre]);
+        $query->andFilterWhere(['like', 'nombre', $this->nombre])
+            ->andFilterWhere(['like', 'logo', $this->logo]);
 
         return $dataProvider;
     }

@@ -11,7 +11,9 @@ use Yii;
  * @property string $nombre
  * @property float $presupuesto
  * @property float $gastos
+ * @property string $logo
  *
+ * @property DepEmpleados[] $depEmpleados
  * @property Empleado[] $empleados
  */
 class Departamento extends \yii\db\ActiveRecord
@@ -31,8 +33,8 @@ class Departamento extends \yii\db\ActiveRecord
     {
         return [
             [['nombre', 'presupuesto', 'gastos'], 'required'],
-            [['presupuesto', 'gastos'], 'number'],
-            [['nombre'], 'string', 'max' => 100],
+            [['presupuesto', 'gastos'], 'number'],            
+            [['nombre', 'logo'], 'string', 'max' => 100],
         ];
     }
 
@@ -46,7 +48,18 @@ class Departamento extends \yii\db\ActiveRecord
             'nombre' => 'Nombre',
             'presupuesto' => 'Presupuesto',
             'gastos' => 'Gastos',
+            'logo' => 'Logo',            
         ];
+    }
+
+    /**
+     * Gets query for [[DepEmpleados]].
+     *
+     * @return \yii\db\ActiveQuery|DepEmpleadosQuery
+     */
+    public function getDepEmpleados()
+    {
+        return $this->hasMany(DepEmpleados::class, ['id_departamento' => 'codigo']);
     }
 
     /**
