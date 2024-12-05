@@ -15,5 +15,5 @@ Para ejecutar este proyecto, asegúrate de tener los siguientes requisitos:
 
 1. Clona el repositorio en tu máquina local
 2. Instala XAMP
-3. Instala la base de datos adjunta.
+3. Instala la base de datos adjunta. https://github.com/cbta53modulo/demo/blob/main/empleados.sql
 4. Listo
