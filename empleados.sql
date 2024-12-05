@@ -88,22 +88,23 @@ CREATE TABLE IF NOT EXISTS `nomina` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_empleado` int(10) NOT NULL,
   `sueldo` decimal(20,6) NOT NULL,
+  `bono` decimal(3,2) DEFAULT NULL,
   `f_pago` date NOT NULL,
   KEY `id` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Volcando datos para la tabla empleados.nomina: ~10 rows (aproximadamente)
-INSERT INTO `nomina` (`id`, `id_empleado`, `sueldo`, `f_pago`) VALUES
-	(1, 10, 5070.160000, '2024-11-10'),
-	(2, 13, 3482.600000, '2023-12-22'),
-	(3, 14, 6846.560000, '2023-12-08'),
-	(4, 2, 5274.230000, '2024-11-03'),
-	(5, 11, 8857.060000, '2024-03-10'),
-	(6, 4, 4670.590000, '2024-03-14'),
-	(7, 5, 3016.810000, '2024-10-28'),
-	(8, 6, 3193.120000, '2024-10-17'),
-	(9, 3, 5625.890000, '2024-07-10'),
-	(10, 2, 9966.190000, '2024-05-09');
+INSERT INTO `nomina` (`id`, `id_empleado`, `sueldo`, `bono`, `f_pago`) VALUES
+	(1, 10, 5070.160000, 2.14, '2024-11-10'),
+	(2, 13, 3482.600000, 9.99, '2023-12-22'),
+	(3, 14, 6846.560000, 2.60, '2023-12-08'),
+	(4, 2, 5274.230000, 1.20, '2024-11-03'),
+	(5, 11, 8857.060000, 2.80, '2024-03-10'),
+	(6, 4, 4670.590000, 2.80, '2024-03-14'),
+	(7, 5, 3016.810000, 7.20, '2024-10-28'),
+	(8, 6, 3193.120000, 8.50, '2024-10-17'),
+	(9, 3, 5625.890000, 3.50, '2024-07-10'),
+	(10, 2, 9966.190000, 9.90, '2024-05-09');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

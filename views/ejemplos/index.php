@@ -83,7 +83,7 @@ $form = ActiveForm::begin([
 echo "<tr>";
 echo "<td>Consulta 1: Un parametro<div class='sql-code'>$highlightedSql</div></td>";
 echo "<td>";
-echo "Parametro 1: " . Html::textInput('parametro1', '', ['class' => 'form-control']);
+echo "Parametro 1: " . Html::input('number', 'parametro1', '', ['class' => 'form-control']);
 echo "<br>";
 echo "</td>";
 echo "<td>";
@@ -107,7 +107,8 @@ $form = ActiveForm::begin([
 echo "<tr>";
 echo "<td>Consulta 2: Having con parametro en radio y order by <div class='sql-code'>$highlightedSql</div></td>";
 echo "<td>";
-echo "Parametro 1: " . Html::textInput('parametro1', '', ['class' => 'form-control']);
+// Usamos un input para asegurar que nos llegen solo enteros
+echo "Parametro 1: " . Html::input('number', 'parametro1', '', ['class' => 'form-control']);
 echo "Parametro 2" . Html::radioList('parametro2', 'ASC', [
     'ASC' => 'Ascendente',
     'DESC' => 'Descendente',
@@ -277,10 +278,13 @@ $form = ActiveForm::begin([
 ]);
 
 echo "<tr>";
-echo "<td>Consulta 8:<div class='sql-code'>$highlightedSql</div></td>";
+echo "<td>Consulta 8: Decimal con input numerico<div class='sql-code'>$highlightedSql</div></td>";
 echo "<td>";
-echo "Parametro 1: " . Html::textInput('parametro1', '', ['class' => 'form-control']);
-echo "Parametro 2: " . Html::textInput('parametro2', '', ['class' => 'form-control']) . "<br>";
+echo "Parametro 1: " . Html::input('number', 'parametro1', '', [
+    'class' => 'form-control',
+    'step' => '0.1', // Permite decimales
+]);
+echo "<br>";
 echo "</td>";
 echo "<td>";
 echo Html::hiddenInput('queryId', 'consulta8'); // Identificador de consulta

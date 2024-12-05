@@ -36,7 +36,10 @@ class EjemplosController extends \yii\web\Controller
                         FROM empleado e
                         INNER JOIN departamento d ON e.codigo_departamento = d.codigo                        
                         ',
-        'consulta8' => '',
+        'consulta8' => 'SELECT e.nif, e.nombre, e.apellido1, n.bono
+                        FROM nomina n
+                        INNER JOIN empleado e ON e.codigo = n.id_empleado
+                        WHERE n.bono <= :param1',
         'consulta9' => '',
         'consulta10' => ''
 
@@ -63,41 +66,32 @@ class EjemplosController extends \yii\web\Controller
             // Identifica la consulta según el botón presionado
             switch ($queryId) {
                 case 'consulta1':
-                    $params = [
-                        ':param1' => "$param1"
-                    ];
+                    $params[':param1'] = $param1;
                     break;
 
                 case 'consulta2':
-                    // Como el valor es un texto, lo pegamos directamente para evitar errores.
+                    //Como se envia el valor como string ej: '1' lo pasamos a numero entero en este caso
+
+                    $params[':param1'] = (int)$param1;
+
+                    // Como el valor es un texto, lo pegamos directamente para evitar errores y tener ASC en lugar de 'ASC'.
                     $sql .= " ORDER BY depa $param2;";
-                    $params = [
-                        ':param1' => $param1,
-                    ];
                     break;
 
                 case 'consulta3':
-                    $params = [
-                        ':param1' => $param1,
-                        ':param2' => $param2,
-                    ];
+                    $params[':param1'] = $param1;
+                    $params[':param2'] = $param2;
                     break;
 
                 case 'consulta4':
-                    $params = [
-                        ':param1' => $param1
-                    ];
+                    $params[':param1'] = $param1;
                     break;
 
                 case 'consulta5':
-                    $params = [
-                        ':param1' => $param1
-                    ];
+                    $params[':param1'] = $param1;
                     break;
                 case 'consulta6':
-                    $params = [
-                        ':param1' => $param1
-                    ];
+                    $params[':param1'] = $param1;
                     break;
                 case 'consulta7':
                     //Aseguramos que venta algo seleccionado
@@ -105,6 +99,10 @@ class EjemplosController extends \yii\web\Controller
                         $param1IN = implode(',', array_map('intval', $param1)); // Asegura que los valores sean enteros
                         $sql .= "WHERE d.codigo IN ($param1IN)";
                     }
+                    break;
+                case 'consulta8':
+                    //Como se envia el valor como string ej: '1.4' lo pasamos a numero decimal en este caso
+                    $params[':param1'] = (float)$param1;
                     break;
                 default:
                     $sql = false;
