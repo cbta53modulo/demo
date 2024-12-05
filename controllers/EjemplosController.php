@@ -32,7 +32,10 @@ class EjemplosController extends \yii\web\Controller
                         WHERE codigo_departamento = :param1',
         'consulta6' => 'SELECT * FROM empleado
                         WHERE codigo_departamento = :param1',
-        'consulta7' => '',
+        'consulta7' => 'SELECT e.nombre, e.apellido1, e.apellido2, d.nombre
+                        FROM empleado e
+                        INNER JOIN departamento d ON e.codigo_departamento = d.codigo                        
+                        ',
         'consulta8' => '',
         'consulta9' => '',
         'consulta10' => ''
@@ -95,6 +98,13 @@ class EjemplosController extends \yii\web\Controller
                     $params = [
                         ':param1' => $param1
                     ];
+                    break;
+                case 'consulta7':
+                    //Aseguramos que venta algo seleccionado
+                    if (!empty($param1) && is_array($param1)) {
+                        $param1IN = implode(',', array_map('intval', $param1)); // Asegura que los valores sean enteros
+                        $sql .= "WHERE d.codigo IN ($param1IN)";
+                    }
                     break;
                 default:
                     $sql = false;

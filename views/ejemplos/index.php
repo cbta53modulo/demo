@@ -251,10 +251,13 @@ $form = ActiveForm::begin([
 ]);
 
 echo "<tr>";
-echo "<td>Consulta 7:<div class='sql-code'>$highlightedSql</div></td>";
+echo "<td>Consulta 7: IN<div class='sql-code'>$highlightedSql--El WHERE d.codigo IN () ira en la otra parte por se numeros</div></td>";
 echo "<td>";
-echo "Parametro 1: " . Html::textInput('parametro1', '', ['class' => 'form-control']);
-echo "Parametro 2: " . Html::textInput('parametro2', '', ['class' => 'form-control']) . "<br>";
+echo "Parametro 1:<br>";
+echo Html::checkbox('parametro1[]', true, ['value' => 1, 'label' => 'Desarrollo']) . "<br>";
+echo Html::checkbox('parametro1[]', false, ['value' => 2, 'label' => 'Sistemas']) . "<br>";
+echo Html::checkbox('parametro1[]', false, ['value' => 3, 'label' => 'Recursos Humanos']) . "<br>";
+echo "<br>";
 echo "</td>";
 echo "<td>";
 echo Html::hiddenInput('queryId', 'consulta7'); // Identificador de consulta
