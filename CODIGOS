@@ -1,0 +1,54 @@
+<!-- TIPOS DE INPUT -->
+
+<?= $form->field($model, 'fecha')->input('date') ?>
+<!-- Campo para fechas -->
+
+<?= $form->field($model, 'hora')->input('time') ?>
+<!-- Campo para hroas -->
+
+<?= $form->field($model, 'numero')->input('number', ['min' => 0, 'max' => 100, 'step' => 1]) ?>
+<!-- Campo para números, con valores mínimo, máximo y un paso de incremento -->
+
+<?= $form->field($model, 'telefono')->input('tel', ['maxlength' => true, 'placeholder' => '123-456-7890']) ?>
+<!-- Campo para números de teléfono, puede incluir un placeholder para guiar al usuario -->
+
+<?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
+<!-- Campo para contraseñas, oculta los caracteres introducidos -->
+
+<?= $form->field($model, 'email')->input('email', ['maxlength' => true, 'placeholder' => 'example@example.com']) ?>
+<!-- Campo para direcciones de correo electrónico -->
+
+<?= $form->field($model, 'url')->input('url', ['maxlength' => true, 'placeholder' => 'https://example.com']) ?>
+<!-- Campo para URLs, valida que el formato sea correcto -->
+
+<?= $form->field($model, 'color')->input('color') ?>
+<!-- Campo para seleccionar un color, muestra un selector de colores -->
+
+<?= $form->field($model, 'archivo')->fileInput() ?>
+<!-- Campo para subir archivos -->
+
+<?= $form->field($model, 'rango')->input('range', ['min' => 0, 'max' => 100, 'step' => 5]) ?>
+<!-- Campo tipo deslizador para seleccionar un valor en un rango -->
+
+<?= $form->field($model, 'busqueda')->input('search', ['placeholder' => 'Buscar...']) ?>
+<!-- Campo de búsqueda, especialmente útil para formularios de búsqueda -->
+
+<?= $form->field($model, 'semana')->input('week') ?>
+<!-- Campo para seleccionar una semana del año -->
+
+<?= $form->field($model, 'mes')->input('month') ?>
+<!-- Campo para seleccionar un mes del año -->
+
+| Tipo (`input`)  | Descripción                                           | Ejemplo adicional           |
+|------------------|-------------------------------------------------------|-----------------------------|
+| **`number`**     | Campo para números con controles de incremento.       | Edad, cantidad, etc.        |
+| **`tel`**        | Campo para teléfonos, puede incluir validación de patrones. | Número de contacto.         |
+| **`password`**   | Campo para contraseñas (oculta los caracteres).       | Contraseña de usuario.      |
+| **`email`**      | Campo para direcciones de correo electrónico.         | Correo de registro.         |
+| **`url`**        | Campo para URLs válidas.                              | Enlace personal, sitio web. |
+| **`color`**      | Selector de colores.                                  | Selección de paletas.       |
+| **`file`**       | Campo para subir archivos.                            | Documentos o imágenes.      |
+| **`range`**      | Deslizador para seleccionar valores dentro de un rango. | Configuración de volumen.   |
+| **`search`**     | Campo de búsqueda.                                    | Formularios de búsqueda.    |
+| **`week`**       | Selector de semana.                                   | Semanas en un calendario.   |
+| **`month`**      | Selector de mes.                                      | Selección de meses.         |
